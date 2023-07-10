@@ -1,0 +1,62 @@
+<!-- Bloque de directivas de atributo -->
+
+<p [ngStyle]="{color:'tomato', fontWeight:'border'}">Lista de elementos:</p>
+
+<p ngClass="underlined">Aquí vamos a iterar sobre una lista</p>
+
+<p [ngClass]="{underlined: false, big: true}">Aquí vamos a iterar sobre una lista</p>
+
+<!--Directivas estructurales-->
+
+<button (click)="cambiarCargando()">
+  {{ cargando ? 'Terminar Carga' : 'Iniciar carga'}}
+</button>
+
+    <!-- <p *ngIf="cargando">
+      Cargando...
+    </p> -->
+
+<ng-container *ngIf="!cargando;else templateEspera">
+  <p>Todo Listo</p>
+</ng-container>
+
+<ng-template #templateEspera>
+  <p>Cargando...</p>
+  <p>Espere a que termine proceso</p>
+</ng-template>
+
+<!--Bloque NGFOR-->
+
+<div [ngStyle]="even?{backgroundColor: 'blue', color:'white', fontWeight: 'bold'}:{backgroundColor: 'grey', color:'white', fontWeight: 'bold'}"
+ *ngFor="let producto of listaElementos let i= index; let even= even">
+  <ul>
+   <li>Id: {{ i+1 }}  - {{producto.nombre}} - Precio: {{producto.precio}}€ - Descripcion: {{producto.descripcion}}</li>
+ </ul>
+</div>
+
+<!--Bloque NGSWITCH-->
+
+<div [ngSwitch]="opcion">
+  <p [id]="1" *ngSwitchCase= "1">Opcion 1 </p>
+  <p [id]="2" *ngSwitchCase= "2">Opcion 2 </p>
+  <p [id]="3" *ngSwitchCase= "3">Opcion 3 </p>
+  <p [id]="4" *ngSwitchCase= "4">Opcion 4 </p>
+  <p *ngSwitchDefault class="cerrar">Ninguna de las opciones</p>
+</div>
+
+<div>
+  <input type="radio" name="opcion" (click)="escogerOpcion(1)" /> Opcion 1
+  <input type="radio" name="opcion" (click)="escogerOpcion(2)" /> Opcion 2
+  <input type="radio" name="opcion" (click)="escogerOpcion(3)" /> Opcion 3
+  <input type="radio" name="opcion" (click)="escogerOpcion(4)" /> Opcion 4
+  <input type="radio" selected="selected" name="opcion" (click)="escogerOpcion(0)" /> Ocultar
+</div>
+
+<!-- Concatenar directivas-->
+<div *ngFor="let producto of listaElementos let i= index; let even= even">
+  <div *ngIf="producto.precio>10" [ngStyle]="even?{backgroundColor: 'blue', color:'white', fontWeight: 'bold'}:{backgroundColor: 'grey', color:'white', fontWeight: 'bold'}">
+    <ul>
+     <li>Id: {{ i+1 }}  - {{producto.nombre}} - Precio: {{producto.precio}}€ - Descripcion: {{producto.descripcion}}</li>
+    </ul>
+  </div>
+</div>
